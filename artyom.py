@@ -258,8 +258,8 @@ def say_pidor(message):
                 bot.send_voice(message.chat.id, f1)
 
     if message.from_user.username == "Nonik000":
-        if len(message.text) > 15:
-            if random.randint(1, 10) == 1:
+        if len(message.text) > 24:
+            if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
 
     if message.text.lower() == 'тьома підар' or message.text.lower() == 'тьома підор':
