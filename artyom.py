@@ -23,7 +23,8 @@ pidora_otvet = ("", "Підора отвєт", "Сказав підор", "Сл�
                 "Від таких як ти в мене функциї зациклюються", "Ти актів, чи пасів?", "П...",
                 "[CENSORED]", "Я конєшно не богомільний, но то шо підари = гріх, знаю!",
                 "Я конєшно не нейросєть, але то шо ти підар вирахувати зміг",
-                "Добре шо людські хвороби для таких як я не заразні, бо начав би підарний код розуміти.")
+                "Добре шо людські хвороби для таких як я не заразні, бо начав би підарний код розуміти.",
+                "Я записав тебе в список підарасів", "А ти смєлий підар дня, однако. Уважаю.")
 
 vocab = {"скільки вовка не годуй": "артьом всьо равно підар", "Сім раз відмірь": "Артьом кожний раз підар",
          "Скажи мені хто твій друг": "і я скажу, шо артьом підор", "Артьом": "підар", "Підар це": "Артьом",
@@ -58,21 +59,21 @@ def first_one_today(chat_id, name):
         d = datetime.date(year, month, day)
         today = datetime.date.today()
         if d != today:
-            new_data = open('{}.txt'.format(chat_id), 'w')
-            new_data.write(str(today.year) + '\n')
-            new_data.write(str(today.month) + '\n')
-            new_data.write(str(today.day) + '\n')
-            new_data.close()
+            with open(f'{name}{chat_id}.txt', 'w') as new_data:
+                new_data.write(str(today.year) + '\n')
+                new_data.write(str(today.month) + '\n')
+                new_data.write(str(today.day) + '\n')
             return True
+
         else:
             return False
+
     else:
         today = datetime.date.today()
-        new_chat_file = open(f'{name}{chat_id}.txt', 'w')
-        new_chat_file.write(str(today.year) + '\n')
-        new_chat_file.write(str(today.month) + '\n')
-        new_chat_file.write(str(today.day) + '\n')
-        new_chat_file.close()
+        with open(f'{name}{chat_id}.txt', 'w') as new_chat_file:
+            new_chat_file.write(str(today.year) + '\n')
+            new_chat_file.write(str(today.month) + '\n')
+            new_chat_file.write(str(today.day) + '\n')
         return True
 
 
@@ -245,7 +246,7 @@ def say_pidor(message):
 
         if sent_recently(message, 300):
             if message.from_user.username == "{}".format(today_pidor):   # ADD 1 q to make it work
-                if random.randint(1, 4) == 1:
+                if random.randint(1, 8) == 1:
                     bot.reply_to(message, random.choice(pidora_otvet))
 
     for key, value in vocab.items():
@@ -258,7 +259,7 @@ def say_pidor(message):
                 bot.send_voice(message.chat.id, f1)
 
     if message.from_user.username == "Nonik000":
-        if len(message.text) > 24:
+        if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
 
@@ -269,7 +270,7 @@ def say_pidor(message):
 @bot.message_handler(content_types=['sticker'])
 def send_random_sticker(message):
     nums = []
-    if random.randint(0, 5) == 1:
+    if random.randint(0, 9) == 1:
         for i in open('stickers_id.txt', 'r'):
             nums.append(i[:-1])
         bot.send_sticker(message.chat.id, random.choice(nums))
@@ -277,7 +278,7 @@ def send_random_sticker(message):
 
 @bot.message_handler(content_types=['voice'])
 def say_something(message):
-    if random.randint(1, 15) == 2:
+    if random.randint(1, 55) == 2:
         bot.reply_to(message, "Вот тобі понравиться, якшо я начну ноліками/одиничками общатись?")
 
 '''
