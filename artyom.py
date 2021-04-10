@@ -93,6 +93,9 @@ def send_welcome(message):
 def send_help(message):
     bot.send_message(message.chat.id, Help)
 
+@bot.message_handler(commands=['all'])
+def call_everybody(message):
+    bot.send_message(message.chat.id, "@r0m41q, @termosqq, @etniqa, @prosto_andrya, @Nonik000")
 
 @bot.message_handler(commands=['voice'])
 def send_voice(message):
