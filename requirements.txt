@@ -17,3 +17,4 @@ six==1.13.0
 sqlparse==0.3.0
 tornado==6.0.3
 urllib3==1.25.7
+language-tool-python==2.5.3
