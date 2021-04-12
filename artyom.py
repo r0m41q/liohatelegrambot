@@ -3,9 +3,11 @@ import random
 import os
 import datetime
 from operator import itemgetter
+import language_tool_python
 
 bot = telebot.TeleBot("1045493175:AAF2wz8Plb44Hr_OUsXLpHutz2kz8WlV6CI")
 
+tool = language_tool_python.LanguageTool('uk')
 
 Hello = "Hi, Artyom is pidar! \nTruly he is.\nMy functions are quite spectacular: \nType /help to know more."
 Help = "There are many things i could do, but the most pleasuring is calling Tyoma pidar, of course.\n" \
@@ -93,9 +95,11 @@ def send_welcome(message):
 def send_help(message):
     bot.send_message(message.chat.id, Help)
 
+
 @bot.message_handler(commands=['all'])
 def call_everybody(message):
     bot.send_message(message.chat.id, "@r0m41q, @termosqq, @etniqa, @prosto_andrya, @Nonik000")
+
 
 @bot.message_handler(commands=['voice'])
 def send_voice(message):
@@ -115,7 +119,8 @@ def send_fact(message):
             bot.send_message(message.chat.id, "Fact of the day:\n")
             bot.send_message(message.chat.id, random.choice(facts))
         else:
-            bot.send_message(message.chat.id, "Fact of the day:\nТьома і Льоха підар. Це після нього я маю дописувати цього бота блять?")
+            bot.send_message(message.chat.id, "Fact of the day:\nТьом і Льох підар. "
+                                              "Це після нього я маю дописувати цього бота блять?")
     else:
         bot.send_message(message.chat.id, "You already got fact of the day, \nYou gotta wait for the next day")
 
@@ -146,7 +151,7 @@ def get_players_usernames(message):
                 with open('idpidor{}.txt'.format(message.chat.id), 'a') as file1:
                     file1.write('{}'.format(username) + '\n')
                 bot.reply_to(message, "Congrats, you are in the game!")
-                                                        # Добавляем в словарь счетчика пидорства юзернейм и значение 0
+
                 with open("stats{}.txt".format(message.chat.id), 'r') as statfile:
                     info = eval(statfile.read())
                     info.setdefault("{}".format(username), 0)
@@ -266,6 +271,14 @@ def say_pidor(message):
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
 
+    if message.from_user.username == "r0m41q":
+        text1 = message.text
+        if len(text1) > 8:
+            matches = tool.check(text1)
+            if len(matches) > 2:
+                proposal = language_tool_python.utils.correct(text1, matches)
+                bot.reply_to(message, '{}'.format(proposal))
+
     if message.text.lower() == 'тьома підар' or message.text.lower() == 'тьома підор':
         bot.reply_to(message, "Как боженька молвил")
 
@@ -283,6 +296,7 @@ def send_random_sticker(message):
 def say_something(message):
     if random.randint(1, 55) == 2:
         bot.reply_to(message, "Вот тобі понравиться, якшо я начну ноліками/одиничками общатись?")
+
 
 '''
 @bot.message_handler(content_types=['sticker'])
