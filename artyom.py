@@ -271,7 +271,7 @@ def say_pidor(message):
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
 
-    if message.from_user.username == "r0m41q":
+    if message.from_user.username == "@prosto_andrya":
         text1 = message.text
         if len(text1) > 8:
             matches = tool.check(text1)
