@@ -7,7 +7,7 @@ import language_tool_python
 
 bot = telebot.TeleBot("1045493175:AAF2wz8Plb44Hr_OUsXLpHutz2kz8WlV6CI")
 
-tool = language_tool_python.LanguageTool('uk')
+tool = language_tool_python.LanguageToolPublicAPI('uk')
 
 Hello = "Hi, Artyom is pidar! \nTruly he is.\nMy functions are quite spectacular: \nType /help to know more."
 Help = "There are many things i could do, but the most pleasuring is calling Tyoma pidar, of course.\n" \
