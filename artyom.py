@@ -126,12 +126,8 @@ def send_fact(message):
     if first_one_today(message.chat.id, "fact"):
         f = open('facts.txt', 'rb')
         facts = f.readlines()
-        if random.choice([0, 1, 2, 3]) != 0:
-            bot.send_message(message.chat.id, "Fact of the day:\n")
-            bot.send_message(message.chat.id, random.choice(facts))
-        else:
-            bot.send_message(message.chat.id, "Fact of the day:\nТьом і Льох підар. "
-                                              "Це після нього я маю дописувати цього бота блять?")
+        bot.send_message(message.chat.id, random.choice(facts))
+
     else:
         bot.send_message(message.chat.id, "You already got fact of the day, \nYou gotta wait for the next day")
 
