@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="831c17e5-0c3b-42f2-844c-04a0fe0c57db" name="Default Changelist" comment="now there are equal chances for all facts">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_05_2021_22_52_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_05_2021_22_52__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/facts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/facts.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
