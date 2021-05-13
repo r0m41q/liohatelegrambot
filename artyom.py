@@ -15,7 +15,7 @@ Help = "There are many things i could do, but the most pleasuring is calling Tyo
        "There are also:\n/voice\n/getsticker\n/me(personal stat) and\n/stats(overall stat)\n Enjoy, хуйлики!\n" \
        "Almost forgot, /creator is also a command."
 
-pidora_otvet = ("", "Підора отвєт", "Сказав підор", "Слова підараса", "Так лиш підари говорять",
+pidora_otvet = ("Підора отвєт", "Сказав підор", "Слова підараса", "Так лиш підари говорять",
                 "твої слова пропітані підорством", "ти шо підар?", "мм, підарасня, блять",
                 "В кого ти такий підор?", "Чують мої мєтоди, шо ти підар", "Лучше б мовчав",
                 "Ми підарську мову не розумієм", "Звучить по підарски", "©пидор",
@@ -260,7 +260,7 @@ def say_pidor(message):
         today_pidor = today_pidor1[:-1]
 
         if sent_recently(message, 300):
-            if message.from_user.username == "{}".format(today_pidor):   # ADD 1 q to make it work
+            if message.from_user.username == "{}".format(today_pidor) and not message.forward_from:
                 if random.randint(1, 8) == 1:
                     bot.reply_to(message, random.choice(pidora_otvet))
 
@@ -273,7 +273,7 @@ def say_pidor(message):
             with open('pidor.ogg', 'rb') as f1:
                 bot.send_voice(message.chat.id, f1)
 
-    if message.from_user.username == "Nonik000":
+    if message.from_user.username == "Nonik000" and not message.forward_from:
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")

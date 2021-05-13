@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="831c17e5-0c3b-42f2-844c-04a0fe0c57db" name="Default Changelist" comment="now there are equal chances for all facts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/facts.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/artyom.py" beforeDir="false" afterPath="$PROJECT_DIR$/artyom.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
