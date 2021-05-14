@@ -293,6 +293,12 @@ def say_pidor(message):
     if message.text.lower() == 'тьома підар' or message.text.lower() == 'тьома підор':
         bot.reply_to(message, "Как боженька молвил")
 
+    if message.text.lower() == 'жостко тебе марта, артьом?':
+        for file in os.listdir('video/'):
+            if file == 'for_bot.mp4':
+                f = open('video/' + file, 'rb')
+                bot.send_video_note(message.chat.id, f)
+
 
 @bot.message_handler(content_types=['sticker'])
 def send_random_sticker(message):
