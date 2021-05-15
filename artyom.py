@@ -132,6 +132,18 @@ def send_fact(message):
         bot.send_message(message.chat.id, "You already got fact of the day, \nYou gotta wait for the next day")
 
 
+@bot.message_handler(commands=['meme'])
+def send_saved_photo(message):
+    if first_one_today(message.chat.id, "meme"):
+        random_file = random.choice(os.listdir("./Memes"))
+        with open('./Memes/{}'.format(random_file), 'rb') as file:
+            image = file.read()
+            bot.send_photo(message.chat.id, image)
+
+    else:
+        bot.send_message(message.chat.id, "That much laugh can kill, you know?")
+
+
 @bot.message_handler(commands=['getsticker'])
 def send_random_sticker(message):
     nums = []
