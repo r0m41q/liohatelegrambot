@@ -193,29 +193,34 @@ def get_players_usernames(message):
 
 @bot.message_handler(commands=['pidor'])
 def pidor_dnya(message):
-    with open('idpidor{}.txt'.format(message.chat.id)) as file:
-        players_usernames = file.readlines()
+    try:
+        with open('idpidor{}.txt'.format(message.chat.id)) as file:
+            players_usernames = file.readlines()
 
-    if first_one_today(message.chat.id, "datepidor"):
-        today_pidor = random.choice(players_usernames)
-        bot.send_message(message.chat.id, "Hmmmm, let me think...")
-        bot.send_message(message.chat.id, "Pidor of the day iiiiiis")
-        bot.send_message(message.chat.id, "@{} you are pidar!".format(today_pidor))
+            if first_one_today(message.chat.id, "datepidor"):
+                today_pidor = random.choice(players_usernames)
+                bot.send_message(message.chat.id, "Hmmmm, let me think...")
+                bot.send_message(message.chat.id, "Pidor of the day iiiiiis")
+                bot.send_message(message.chat.id, "@{} you are pidar!".format(today_pidor))
 
-        with open('stats{}.txt'.format(message.chat.id, 'r')) as statfile:
-            info = eval(statfile.read())
-        info['{}'.format(today_pidor[:-1])] += 1
-        with open('stats{}.txt'.format(message.chat.id), 'w') as statfile2:
-            statfile2.write(str(info))
+                with open('stats{}.txt'.format(message.chat.id, 'r')) as statfile:
+                    info = eval(statfile.read())
+                info['{}'.format(today_pidor[:-1])] += 1
+                with open('stats{}.txt'.format(message.chat.id), 'w') as statfile2:
+                    statfile2.write(str(info))
 
-        with open('today_pidor{}.txt'.format(message.chat.id), 'w') as file:
-            file.write('{}'.format(today_pidor))
+                with open('today_pidor{}.txt'.format(message.chat.id), 'w') as file:
+                    file.write('{}'.format(today_pidor))
 
-    else:
-        with open('today_pidor{}.txt'.format(message.chat.id, 'r')) as file:
-            today_pidor1 = file.read()
-        today_pidor = today_pidor1[:-1]
-        bot.reply_to(message, "Pidor of the day is:\n{}".format(today_pidor))
+            else:
+                with open('today_pidor{}.txt'.format(message.chat.id, 'r')) as file:
+                    today_pidor1 = file.read()
+                today_pidor = today_pidor1[:-1]
+                bot.reply_to(message, "Pidor of the day is:\n{}".format(today_pidor))
+
+    except FileNotFoundError:
+        bot.send_message(message.chat.id, 'use /startgame first')
+
 
 
 @bot.message_handler(commands=['me'])
