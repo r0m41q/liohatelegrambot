@@ -2,6 +2,7 @@ import telebot
 import random
 import os
 import datetime
+import time
 from operator import itemgetter
 import language_tool_python
 
@@ -109,6 +110,7 @@ def send_voice(message):
     for file in os.listdir('voice/'):
         if file == 'pidor.ogg':
             f = open('voice/' + file, 'rb')
+            f.close()
             bot.send_voice(message.chat.id, f)
 
 
@@ -117,6 +119,7 @@ def send_voice(message):
     for file in os.listdir('voice/'):
         if file == 'bomb.ogg':
             f = open('voice/' + file, 'rb')
+            f.close()
             bot.send_voice(message.chat.id, f)
 
 
@@ -126,6 +129,7 @@ def send_fact(message):
     if first_one_today(message.chat.id, "fact"):
         f = open('facts.txt', 'rb')
         facts = f.readlines()
+        f.close()
         bot.send_message(message.chat.id, random.choice(facts))
 
     else:
@@ -135,13 +139,12 @@ def send_fact(message):
 @bot.message_handler(commands=['meme'])
 def send_saved_photo(message):
     if first_one_today(message.chat.id, "meme"):
-        random_file = random.choice(os.listdir("./Memes"))
-        with open('./Memes/{}'.format(random_file), 'rb') as file:
-            image = file.read()
-            bot.send_photo(message.chat.id, image)
-
+        nums = []
+        for i in open('photo_id.txt', 'r'):
+            nums.append(i[:-1])
+        bot.send_photo(message.chat.id, random.choice(nums))
     else:
-        bot.send_message(message.chat.id, "That much laugh can kill, you know?")
+        bot.send_message(message.chat.id, "That much laugh can kill, you know")
 
 
 @bot.message_handler(commands=['getsticker'])
@@ -150,6 +153,22 @@ def send_random_sticker(message):
     for i in open('stickers_id.txt', 'r'):
         nums.append(i[:-1])
     bot.send_sticker(message.chat.id, random.choice(nums))
+
+
+'''
+@bot.message_handler(commands=['getid'])
+def get_image_id(message):
+    for file in os.listdir("./Memes"):
+        print(file)
+        with open('./Memes/{}'.format(file), 'rb') as image:
+            image = image.read()
+            msg = bot.send_photo(message.chat.id, image)
+            bot.send_message(message.chat.id, msg.photo[1].file_id, reply_to_message_id=msg.message_id)
+            with open('photo_id.txt', 'a') as f:
+                photo_id = msg.photo[1].file_id
+                f.write(photo_id + "\n")
+            time.sleep(1.5)
+'''
 
 
 # Добавляем юзернеймы игроков в файл
@@ -222,7 +241,6 @@ def pidor_dnya(message):
         bot.send_message(message.chat.id, 'use /startgame first')
 
 
-
 @bot.message_handler(commands=['me'])
 def how_many_times(message):
     username = message.from_user.username
@@ -287,7 +305,7 @@ def say_pidor(message):
 
     for element in say_it:
         if message.text.lower() == element:
-            with open('pidor.ogg', 'rb') as f1:
+            with open('./voice/pidor.ogg', 'rb') as f1:
                 bot.send_voice(message.chat.id, f1)
 
     if message.from_user.username == "Nonik000" and not message.forward_from:
