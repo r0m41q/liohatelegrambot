@@ -13,9 +13,11 @@ tool = language_tool_python.LanguageTool('uk')
 Hello = "Hi, Artyom is pidar! \nTruly he is.\nMy functions are quite spectacular: \nType /help to know more."
 Help = "There are many things i could do, but the most pleasuring is calling Tyoma pidar, of course.\n" \
        "If you want to start playing:\ncommand /startgame will help u.\nWant to know pidar of the day?\nuse /pidor\n" \
-       "There are also:\n/voice\n/getsticker\n/me(personal stat) and\n/stats(overall stat)" \
-       "/fact\n /bomb \n /meme \n /all \n " \
-       "\n Enjoy, хуйлики!\n." \
+       "There are also:\n/voice - the words one should hear everyday" \
+       "\n/getsticker\n/me(personal stat) and\n/stats(overall stat)" \
+       "\n/fact - fact once a day(take with a spoon of scepticism)\n /bomb - better think twice before using it" \
+       "\n /meme - hardcore saved messages from VK\n /all - to gather everyone\n " \
+       "\n Enjoy, хуйлики!\n" \
        "Almost forgot, /creator is also a command."
 
 pidora_otvet = ("Підора отвєт", "Сказав підор", "Слова підараса", "Так лиш підари говорять",
