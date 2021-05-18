@@ -110,8 +110,8 @@ def send_voice(message):
     for file in os.listdir('voice/'):
         if file == 'pidor.ogg':
             f = open('voice/' + file, 'rb')
-            f.close()
             bot.send_voice(message.chat.id, f)
+            f.close()
 
 
 @bot.message_handler(commands=['bomb'])
@@ -119,8 +119,8 @@ def send_voice(message):
     for file in os.listdir('voice/'):
         if file == 'bomb.ogg':
             f = open('voice/' + file, 'rb')
-            f.close()
             bot.send_voice(message.chat.id, f)
+            f.close()
 
 
 # Отправляет факт дня, но только раз в день
