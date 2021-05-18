@@ -13,7 +13,11 @@ tool = language_tool_python.LanguageTool('uk')
 Hello = "Hi, Artyom is pidar! \nTruly he is.\nMy functions are quite spectacular: \nType /help to know more."
 Help = "There are many things i could do, but the most pleasuring is calling Tyoma pidar, of course.\n" \
        "If you want to start playing:\ncommand /startgame will help u.\nWant to know pidar of the day?\nuse /pidor\n" \
-       "There are also:\n/voice\n/getsticker\n/me(personal stat) and\n/stats(overall stat)\n Enjoy, хуйлики!\n" \
+       "There are also:\n/voice - the words one should hear everyday" \
+       "\n/getsticker\n/me(personal stat) and\n/stats(overall stat)" \
+       "\n/fact - fact once a day(take with a spoon of scepticism)\n /bomb - better think twice before using it" \
+       "\n /meme - hardcore saved messages from VK\n /all - to gather everyone\n " \
+       "\n Enjoy, хуйлики!\n" \
        "Almost forgot, /creator is also a command."
 
 pidora_otvet = ("Підора отвєт", "Сказав підор", "Слова підараса", "Так лиш підари говорять",
@@ -244,42 +248,33 @@ def pidor_dnya(message):
 @bot.message_handler(commands=['me'])
 def how_many_times(message):
     username = message.from_user.username
-    with open('stats{}.txt'.format(message.chat.id), 'r') as file:
-        info = eval(file.read())
-        num = info['{}'.format(username)]
-        bot.reply_to(message, "You are " + str(num) + " times pidor")
-
-
-@bot.message_handler(commands=['stat'])
-def statistic(message):
-    with open('stats{}.txt'.format(message.chat.id), 'r') as file:
-        info = eval(file.read())
-
-    spisok = []
-
-    for key, value in info.items():
-        stroka = f'@{key} - {value}\n'
-        spisok.append(stroka)
-
-    output = ''.join(spisok)
-    bot.send_message(message.chat.id, output)
+    try:
+        with open('stats{}.txt'.format(message.chat.id), 'r') as file:
+            info = eval(file.read())
+            num = info['{}'.format(username)]
+            bot.reply_to(message, "You are " + str(num) + " times pidor")
+    except FileNotFoundError:
+        bot.send_message(message.chat.id, "You should be in the game to see stats")
 
 
 @bot.message_handler(commands=['stats'])
 def statistics(message):
-    with open('stats{}.txt'.format(message.chat.id), 'r') as file:
-        info1 = eval(file.read())
+    try:
+        with open('stats{}.txt'.format(message.chat.id), 'r') as file:
+            info1 = eval(file.read())
 
-    info = sorted(info1.items(), key=itemgetter(1), reverse=True)
-    i = 0
-    spisok = []
-    for element in info:
-        stroka = f'{i + 1}.@{element[0]} - {element[1]}\n'
-        spisok.append(stroka)
-        i += 1
+        info = sorted(info1.items(), key=itemgetter(1), reverse=True)
+        i = 0
+        spisok = []
+        for element in info:
+            stroka = f'{i + 1}.@{element[0]} - {element[1]}\n'
+            spisok.append(stroka)
+            i += 1
 
-    output = ''.join(spisok)
-    bot.send_message(message.chat.id, output)
+        output = ''.join(spisok)
+        bot.send_message(message.chat.id, output)
+    except FileNotFoundError:
+        bot.send_message(message.chat.id, "You should be in the game to see stats")
 
 
 @bot.message_handler(commands=['creator'])
