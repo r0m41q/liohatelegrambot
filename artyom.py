@@ -13,11 +13,7 @@ tool = language_tool_python.LanguageTool('uk')
 Hello = "Hi, Artyom is pidar! \nTruly he is.\nMy functions are quite spectacular: \nType /help to know more."
 Help = "There are many things i could do, but the most pleasuring is calling Tyoma pidar, of course.\n" \
        "If you want to start playing:\ncommand /startgame will help u.\nWant to know pidar of the day?\nuse /pidor\n" \
-       "There are also:\n/voice - the words one should hear everyday" \
-       "\n/getsticker\n/me(personal stat) and\n/stats(overall stat)" \
-       "\n/fact - fact once a day(take with a spoon of scepticism)\n /bomb - better think twice before using it" \
-       "\n /meme - hardcore saved messages from VK\n /all - to gather everyone\n " \
-       "\n Enjoy, хуйлики!\n" \
+       "There are also:\n/voice\n/getsticker\n/me(personal stat) and\n/stats(overall stat)\n Enjoy, хуйлики!\n" \
        "Almost forgot, /creator is also a command."
 
 pidora_otvet = ("Підора отвєт", "Сказав підор", "Слова підараса", "Так лиш підари говорять",
@@ -39,8 +35,7 @@ vocab = {"скільки вовка не годуй": "артьом всьо р�
          "Скажи мені хто твій друг": "і я скажу, шо артьом підор", "Артьом": "підар", "Підар це": "Артьом",
          "Уроки учат лохи": "пацани єбут ладохи",
          "Однажды": "мы встретили индусов и пригласили их на бал, на бал разбитых ебал.", "нет": "пидора ответ",
-         "Я зробив": "цю бомбу", "Зараз буде": "відсилка на доту", "Я візьму": "і підірву твою сраку",
-         "тьома підор": "как боженька молвил", "тьома підар": "как боженька молвил"}
+         "Я зробив": "цю бомбу", "Зараз буде": "відсилка на доту", "Я візьму": "і підірву твою сраку"}
 
 say_it = ("say it", 'can you speak', 'скажи шось', 'хто підар?')
 
@@ -249,33 +244,42 @@ def pidor_dnya(message):
 @bot.message_handler(commands=['me'])
 def how_many_times(message):
     username = message.from_user.username
-    try:
-        with open('stats{}.txt'.format(message.chat.id), 'r') as file:
-            info = eval(file.read())
-            num = info['{}'.format(username)]
-            bot.reply_to(message, "You are " + str(num) + " times pidor")
-    except FileNotFoundError:
-        bot.send_message(message.chat.id, 'You are not in the game to see stats')
+    with open('stats{}.txt'.format(message.chat.id), 'r') as file:
+        info = eval(file.read())
+        num = info['{}'.format(username)]
+        bot.reply_to(message, "You are " + str(num) + " times pidor")
+
+
+@bot.message_handler(commands=['stat'])
+def statistic(message):
+    with open('stats{}.txt'.format(message.chat.id), 'r') as file:
+        info = eval(file.read())
+
+    spisok = []
+
+    for key, value in info.items():
+        stroka = f'@{key} - {value}\n'
+        spisok.append(stroka)
+
+    output = ''.join(spisok)
+    bot.send_message(message.chat.id, output)
 
 
 @bot.message_handler(commands=['stats'])
 def statistics(message):
-    try:
-        with open('stats{}.txt'.format(message.chat.id), 'r') as file:
-            info1 = eval(file.read())
+    with open('stats{}.txt'.format(message.chat.id), 'r') as file:
+        info1 = eval(file.read())
 
-        info = sorted(info1.items(), key=itemgetter(1), reverse=True)
-        i = 0
-        spisok = []
-        for element in info:
-            stroka = f'{i + 1}.@{element[0]} - {element[1]}\n'
-            spisok.append(stroka)
-            i += 1
+    info = sorted(info1.items(), key=itemgetter(1), reverse=True)
+    i = 0
+    spisok = []
+    for element in info:
+        stroka = f'{i + 1}.@{element[0]} - {element[1]}\n'
+        spisok.append(stroka)
+        i += 1
 
-        output = ''.join(spisok)
-        bot.send_message(message.chat.id, output)
-    except FileNotFoundError:
-        bot.send_message(message.chat.id, 'You are not in the game to see stats')
+    output = ''.join(spisok)
+    bot.send_message(message.chat.id, output)
 
 
 @bot.message_handler(commands=['creator'])
@@ -320,6 +324,9 @@ def say_pidor(message):
             if len(matches) > 1:
                 proposal = language_tool_python.utils.correct(text1, matches)
                 bot.reply_to(message, '{}'.format(proposal))
+
+    if message.text.lower() == 'тьома підар' or message.text.lower() == 'тьома підор':
+        bot.reply_to(message, "Как боженька молвил")
 
     if message.text.lower() == 'жостко тебе марта, артьом?':
         for file in os.listdir('video/'):
