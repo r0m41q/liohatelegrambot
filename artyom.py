@@ -6,7 +6,7 @@ import time
 from operator import itemgetter
 import language_tool_python
 
-bot = telebot.TeleBot("1045493175:AAF2wz8Plb44Hr_OUsXLpHutz2kz8WlV6CI")
+bot = telebot.TeleBot("1045493175:AAF5-04cMV8NIHhyCus69Mk0JxSNT1twMqM")
 
 tool = language_tool_python.LanguageTool('uk')
 
@@ -353,5 +353,5 @@ def get_sticker_id(message):
     f.write(stick_id + "\n")
     f.close()
 '''
-
+print("Running artyom.py")
 bot.polling(none_stop=True)
