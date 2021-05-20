@@ -3,6 +3,7 @@ import random
 import os
 import datetime
 import time
+import re
 from operator import itemgetter
 import language_tool_python
 
@@ -16,7 +17,7 @@ Help = "There are many things i could do, but the most pleasuring is calling Tyo
        "There are also:\n/voice - the words one should hear everyday" \
        "\n/getsticker\n/me(personal stat) and\n/stats(overall stat)" \
        "\n/fact - fact once a day(take with a spoon of scepticism)\n /bomb - better think twice before using it" \
-       "\n /meme - hardcore saved messages from VK\n /all - to gather everyone\n " \
+       "\n /meme - hardcore saved messages from VK\n /all - to gather everyone\n/quote - random quote" \
        "\n Enjoy, хуйлики!\n" \
        "Almost forgot, /creator is also a command."
 
@@ -125,6 +126,17 @@ def send_voice(message):
             f = open('voice/' + file, 'rb')
             bot.send_voice(message.chat.id, f)
             f.close()
+
+
+@bot.message_handler(commands=['quote'])
+def send_quote(message):
+    clean_quotes = []
+    with open('qt_clean.txt', 'r', encoding='utf-8') as file:
+        quotes = file.readlines()
+    for quote in quotes:
+        quote = re.sub(' \u00A9 ', '\n\u00A9 ', quote)
+        clean_quotes.append(quote)
+    bot.send_message(message.chat.id, random.choice(clean_quotes))
 
 
 # Отправляет факт дня, но только раз в день
