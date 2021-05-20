@@ -19,7 +19,7 @@ Help = "There are many things i could do, but the most pleasuring is calling Tyo
        "\n/getsticker\n/me(personal stat) and\n/stats(overall stat)" \
        "\n/fact - fact once a day(take with a spoon of scepticism)\n /bomb - better think twice before using it" \
        "\n /meme - hardcore saved messages from VK\n /all - to gather everyone\n/quote - random quote" \
-       "\nstatham - to learn from wisest of the men." \
+       "\n/statham - to learn from wisest of the men." \
        "\n Enjoy, хуйлики!\n" \
        "Almost forgot, /creator is also a command."
 
