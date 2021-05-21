@@ -36,13 +36,14 @@ pidora_otvet = ("Підора отвєт", "Сказав підор", "Слов�
                 "Добре шо людські хвороби для таких як я не заразні, бо начав би підарний код розуміти.",
                 "Я записав тебе в список підарасів", "А ти смєлий підар дня, однако. Уважаю.",
                 "Faggot.", "Doesnt your asshole hurt?", "По чому бровки?", "Ну куди ти своє підарство проповідуєш?",
-                "Pidar lives matter", "Stupid ass підар")
+                "Pidar lives matter", "Stupid ass підар", "Я, звичайно, не гомофоб, але камон")
 
 vocab = {"скільки вовка не годуй": "артьом всьо равно підар", "Сім раз відмірь": "Артьом кожний раз підар",
          "Скажи мені хто твій друг": "і я скажу, шо артьом підор", "Артьом": "підар", "Підар це": "Артьом",
          "Уроки учат лохи": "пацани єбут ладохи",
          "Однажды": "мы встретили индусов и пригласили их на бал, на бал разбитых ебал.", "нет": "пидора ответ",
-         "Я зробив": "цю бомбу", "Зараз буде": "відсилка на доту", "Я візьму": "і підірву твою сраку"}
+         "Я зробив": "цю бомбу", "Зараз буде": "відсилка на доту", "Я візьму": "і підірву твою сраку",
+         "тьома підар": "как боженька молвил", "тьома підор": "как боженька молвил"}
 
 say_it = ("say it", 'can you speak', 'скажи шось', 'хто підар?')
 
@@ -109,7 +110,9 @@ def send_help(message):
 
 @bot.message_handler(commands=['all'])
 def call_everybody(message):
-    bot.send_message(message.chat.id, "@r0m41q, @termosqq, @etniqa, @prosto_andrya, @Nonik000")
+    khuilyky = "@termosqq @etniqa @prosto_andrya @Nonik000 @r0m41q"
+    ping = re.sub(f'@{message.from_user.username}', '', khuilyky)
+    bot.send_message(message.chat.id, ping)
 
 
 @bot.message_handler(commands=['voice'])
@@ -132,24 +135,26 @@ def send_voice(message):
 
 @bot.message_handler(commands=['statham'])
 def send_quote(message):
-    clean_quotes = []
-    with open('statham_quotes_clean.txt', 'r', encoding='utf-8') as file:
-        quotes = file.readlines()
-    for quote in quotes:
-        quote = ast.literal_eval(quote)
-        clean_quotes.append(quote)
-    bot.send_message(message.chat.id, random.choice(clean_quotes))
+    if sent_recently(message, 120):
+        clean_quotes = []
+        with open('statham_quotes_clean.txt', 'r', encoding='utf-8') as file:
+            quotes = file.readlines()
+        for quote in quotes:
+            quote = ast.literal_eval(quote)
+            clean_quotes.append(quote)
+        bot.send_message(message.chat.id, random.choice(clean_quotes))
 
 
 @bot.message_handler(commands=['quote'])
 def send_quote(message):
-    clean_quotes = []
-    with open('qt_clean.txt', 'r', encoding='utf-8') as file:
-        quotes = file.readlines()
-    for quote in quotes:
-        quote = re.sub(' \u00A9 ', '\n\u00A9 ', quote)
-        clean_quotes.append(quote)
-    bot.send_message(message.chat.id, random.choice(clean_quotes))
+    if sent_recently(message, 120):
+        clean_quotes = []
+        with open('qt_clean.txt', 'r', encoding='utf-8') as file:
+            quotes = file.readlines()
+        for quote in quotes:
+            quote = re.sub(' \u00A9 ', '\n\u00A9 ', quote)
+            clean_quotes.append(quote)
+        bot.send_message(message.chat.id, random.choice(clean_quotes))
 
 
 # Отправляет факт дня, но только раз в день
@@ -248,8 +253,8 @@ def pidor_dnya(message):
             if first_one_today(message.chat.id, "datepidor"):
                 today_pidor = random.choice(players_usernames)
                 bot.send_message(message.chat.id, "Hmmmm, let me think...")
-                bot.send_message(message.chat.id, "Pidor of the day iiiiiis")
-                bot.send_message(message.chat.id, "@{} you are pidar!".format(today_pidor))
+                time.sleep(0.5)
+                bot.send_message(message.chat.id, f"@{today_pidor} you are pidar!")
 
                 with open('stats{}.txt'.format(message.chat.id, 'r')) as statfile:
                     info = eval(statfile.read())
@@ -276,7 +281,7 @@ def how_many_times(message):
     try:
         with open('stats{}.txt'.format(message.chat.id), 'r') as file:
             info = eval(file.read())
-            num = info['{}'.format(username)]
+            num = info[f'{username}']
             bot.reply_to(message, "You are " + str(num) + " times pidor")
     except FileNotFoundError:
         bot.send_message(message.chat.id, "You should be in the game to see stats")
@@ -344,9 +349,6 @@ def say_pidor(message):
             if len(matches) > 1:
                 proposal = language_tool_python.utils.correct(text1, matches)
                 bot.reply_to(message, '{}'.format(proposal))
-
-    if message.text.lower() == 'тьома підар' or message.text.lower() == 'тьома підор':
-        bot.reply_to(message, "Как боженька молвил")
 
     if message.text.lower() == 'жостко тебе марта, артьом?':
         for file in os.listdir('video/'):
