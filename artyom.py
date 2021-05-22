@@ -338,6 +338,15 @@ def say_pidor(message):
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
 
+    if message.text.lower() == 'хуйлики':
+        m1 = '<a href="tg://user?id=737410204">Хуй</a>'
+        m2 = '<a href="tg://user?id=679885414">л</a>'
+        m3 = '<a href="tg://user?id=591400643">и</a>'
+        m4 = '<a href="tg://user?id=669554603">к</a>'
+        m5 = '<a href="tg://user?id=356854673">и</a>'
+
+        bot.reply_to(message, m1 + m2 + m3 + m4 + m5, parse_mode="HTML")
+
     if message.from_user.username == "@prosto_andrya":
         text1 = message.text
         if len(text1) > 8:
