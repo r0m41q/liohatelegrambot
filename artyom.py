@@ -337,15 +337,17 @@ def say_pidor(message):
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
+    try:
+        if re.search(r'хуйлики', message.text.lower()).group(0) in message.text.lower():
+            m1 = '<a href="tg://user?id=737410204">Хуй</a>'
+            m2 = '<a href="tg://user?id=679885414">л</a>'
+            m3 = '<a href="tg://user?id=591400643">и</a>'
+            m4 = '<a href="tg://user?id=669554603">к</a>'
+            m5 = '<a href="tg://user?id=356854673">и</a>'
 
-    if message.text.lower() == 'хуйлики':
-        m1 = '<a href="tg://user?id=737410204">Хуй</a>'
-        m2 = '<a href="tg://user?id=679885414">л</a>'
-        m3 = '<a href="tg://user?id=591400643">и</a>'
-        m4 = '<a href="tg://user?id=669554603">к</a>'
-        m5 = '<a href="tg://user?id=356854673">и</a>'
-
-        bot.reply_to(message, m1 + m2 + m3 + m4 + m5, parse_mode="HTML")
+            bot.reply_to(message, m1 + m2 + m3 + m4 + m5, parse_mode="HTML")
+    except AttributeError:
+        pass
 
     if message.from_user.username == "@prosto_andrya":
         text1 = message.text
