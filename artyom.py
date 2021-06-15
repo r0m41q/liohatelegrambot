@@ -346,13 +346,8 @@ def say_pidor(message):
                 bot.send_voice(message.chat.id, f1)
 
     if message.from_user.username == "Nonik000" and not message.forward_from:
-        matches = tool.check(message.text)
-        matches = [rule for rule in matches]
-
-        if len(matches) > 0:
-            forward_to_lexa = language_tool_python.utils.correct(message.text, matches)
-            bot.send_message(679885414, f"Here is possible correction:\n{forward_to_lexa}")
-
+        if 'андрюха, на завод' in message.text.lower():
+            bot.send_sticker(669554603, "CAACAgIAAxkBAAIQQGDJFyyPOG_lvycr1epvkxZWAAG8tAAC7gADq5foJ1usnmJLwGkOHwQ")
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
