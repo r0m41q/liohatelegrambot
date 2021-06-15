@@ -314,6 +314,16 @@ def show_creator(message):
     bot.send_sticker(message.chat.id, "CAADAgADlwADq5foJ7-Ri_InKepLFgQ")
 
 
+@bot.message_handler(commands=['allstickers'])
+def show_all_stickers(message):
+    nums = []
+    for i in open('stickers_id.txt', 'r'):
+        nums.append(i[:-1])
+    for sticker in nums:
+        bot.send_sticker(message.chat.id, sticker)
+        time.sleep(1)
+
+
 @bot.message_handler(content_types=['text'])
 def say_pidor(message):
     if os.path.isfile('today_pidor{}.txt'.format(message.chat.id)):
@@ -381,7 +391,7 @@ def say_pidor(message):
                 bot.send_video_note(message.chat.id, f)
                 f.close()
 
-
+'''
 @bot.message_handler(content_types=['sticker'])
 def send_random_sticker(message):
     nums = []
@@ -389,7 +399,7 @@ def send_random_sticker(message):
         for i in open('stickers_id.txt', 'r'):
             nums.append(i[:-1])
         bot.send_sticker(message.chat.id, random.choice(nums))
-
+'''
 
 @bot.message_handler(content_types=['voice'])
 def say_something(message):
@@ -397,6 +407,9 @@ def say_something(message):
         bot.reply_to(message, "Вот тобі понравиться, якшо я начну ноліками/одиничками общатись?")
 
 
+@bot.message_handler(content_types=['sticker'])
+def get_sticker_id(message):
+    bot.send_message(679885414, f'{message.sticker.file_id}')
 '''
 @bot.message_handler(content_types=['sticker'])
 def get_sticker_id(message):
