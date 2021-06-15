@@ -391,7 +391,7 @@ def say_pidor(message):
                 bot.send_video_note(message.chat.id, f)
                 f.close()
 
-'''
+
 @bot.message_handler(content_types=['sticker'])
 def send_random_sticker(message):
     nums = []
@@ -399,7 +399,7 @@ def send_random_sticker(message):
         for i in open('stickers_id.txt', 'r'):
             nums.append(i[:-1])
         bot.send_sticker(message.chat.id, random.choice(nums))
-'''
+
 
 @bot.message_handler(content_types=['voice'])
 def say_something(message):
@@ -407,16 +407,28 @@ def say_something(message):
         bot.reply_to(message, "Вот тобі понравиться, якшо я начну ноліками/одиничками общатись?")
 
 
+'''
 @bot.message_handler(content_types=['sticker'])
 def get_sticker_id(message):
     bot.send_message(679885414, f'{message.sticker.file_id}')
-'''
+
 @bot.message_handler(content_types=['sticker'])
 def get_sticker_id(message):
     f = open("stickers_id.txt", "a")
     stick_id = message.sticker.file_id
     f.write(stick_id + "\n")
     f.close()
+    
+    
+@bot.message_handler(commands=['allstickers'])
+def show_all_stickers(message):
+    nums = []
+    for i in open('stickers_id.txt', 'r'):
+        nums.append(i[:-1])
+    for sticker in nums:
+        bot.send_sticker(message.chat.id, sticker)
+        time.sleep(1)    
 '''
+
 print("Running artyom.py")
 bot.polling(none_stop=True)
