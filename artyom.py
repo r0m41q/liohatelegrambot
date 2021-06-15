@@ -323,7 +323,7 @@ def say_pidor(message):
 
         if sent_recently(message, 300):
             if message.from_user.username == "{}".format(today_pidor) and not message.forward_from:
-                if random.randint(1, 8) == 1:
+                if random.randint(1, 12) == 1:  # 1/11 or 9% chance to trigger
                     bot.reply_to(message, random.choice(pidora_otvet))
 
     for key, value in vocab.items():
@@ -336,6 +336,13 @@ def say_pidor(message):
                 bot.send_voice(message.chat.id, f1)
 
     if message.from_user.username == "Nonik000" and not message.forward_from:
+        matches = tool.check(message.text)
+        matches = [rule for rule in matches]
+
+        if len(matches) > 0:
+            forward_to_lexa = language_tool_python.utils.correct(message.text, matches)
+            bot.send_message(679885414, f"Here is possible correction:\n{forward_to_lexa}")
+
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 bot.reply_to(message, "Как боженька молвил")
