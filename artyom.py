@@ -363,7 +363,7 @@ def say_pidor(message):
     except AttributeError:
         pass
 
-    if message.from_user.username == "@prosto_andrya":
+    if message.from_user.username == "prosto_andrya":
         text1 = message.text
         if len(text1) > 8:
             is_bad_rule = lambda rule: rule.message == 'Це речення не починається з великої літери.' \
