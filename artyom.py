@@ -377,6 +377,10 @@ def say_pidor(message):
 
             if len(matches) > 1:
                 proposal = language_tool_python.utils.correct(text1, matches)
+                bot.send_sticker(message.chat.id,
+                                 "CAACAgIAAxkBAAIQGmDJFtMDPbe4OIHIrCyyHCJjFK9jAALvAAOrl-gnY1y2wnXZiEUfBA")
+                bot.send_chat_action(message.chat.id, 'typing')
+                time.sleep(5)
                 bot.reply_to(message, f'{proposal}')
 
     if message.text.lower() == 'жостко тебе марта, артьом?':
