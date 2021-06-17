@@ -371,11 +371,11 @@ def say_pidor(message):
             matches = tool.check(text1)
             matches = [rule for rule in matches if not is_bad_rule(rule)]
 
-            if len(matches) > 0:
+            if len(matches) > 1:
                 forward_to_lexa = language_tool_python.utils.correct(text1, matches)
                 bot.send_message(679885414, f"Here is possible correction:\n{forward_to_lexa}")
 
-            if len(matches) > 1:
+            if len(matches) > 2:
                 proposal = language_tool_python.utils.correct(text1, matches)
                 bot.send_sticker(message.chat.id,
                                  "CAACAgIAAxkBAAIQGmDJFtMDPbe4OIHIrCyyHCJjFK9jAALvAAOrl-gnY1y2wnXZiEUfBA")
