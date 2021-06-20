@@ -40,7 +40,7 @@ async def send_fact(message: types.Message):
         insert_use_of_function('fact', message.chat.id)
 
     else:
-        await message.answer("You already got fact of the day.")
+        await message.answer("You already got fact of the day, підор!")
 
 
 @dp.message_handler(commands=['getsticker'])
