@@ -86,7 +86,7 @@ async def statistics(message: types.Message):
 @dp.message_handler(commands=['memes_to_db'])
 async def id_to_db(message: types.Message):
     nums = []
-    for i in open('./photo_id.txt', 'r'):
+    for i in open('handlers/groups/photo_id.txt', 'r'):
         nums.append(i[:-1])
     photo_id_collection = pidor_db['memes_id']
     for meme in nums:
@@ -100,7 +100,7 @@ async def id_to_db(message: types.Message):
 @dp.message_handler(commands=['facts_to_db'])
 async def id_to_db(message: types.Message):
     nums = []
-    for i in open('./facts.txt', 'r', encoding='utf-8'):
+    for i in open('handlers/groups/facts.txt', 'r', encoding='utf-8'):
         nums.append(i[:-1])
     photo_id_collection = pidor_db['facts']
     for fact in nums:
@@ -114,7 +114,7 @@ async def id_to_db(message: types.Message):
 @dp.message_handler(commands=['stickers_to_db'])
 async def id_to_db(message: types.Message):
     nums = []
-    for i in open('./stickers_id.txt', 'r'):
+    for i in open('handlers/groups/stickers_id.txt', 'r'):
         nums.append(i[:-1])
     photo_id_collection = pidor_db['stickers_id']
     for sticker in nums:
