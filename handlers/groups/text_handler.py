@@ -80,7 +80,7 @@ async def say_pidor(message: types.Message):
 
     if message.text.lower() == 'жостко тебе марта, артьом?':
         try:
-            with open('data/video/for_bot.omp4', 'rb') as f:
+            with open('data/video/for_bot.mp4', 'rb') as f:
                 await bot.send_video_note(message.chat.id, f)
         except FileNotFoundError:
             pass
