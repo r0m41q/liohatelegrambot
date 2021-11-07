@@ -52,7 +52,7 @@ async def say_pidor(message: types.Message):
 
     if message.from_user.username == "Nonik000" and not message.forward_from:
         if 'андрюха, на завод' in message.text.lower():
-            bot.send_sticker(679885414, "CAACAgIAAxkBAAIQQGDJFyyPOG_lvycr1epvkxZWAAG8tAAC7gADq5foJ1usnmJLwGkOHwQ")
+            await bot.send_sticker(669554603, "CAACAgIAAxkBAAIQQGDJFyyPOG_lvycr1epvkxZWAAG8tAAC7gADq5foJ1usnmJLwGkOHwQ")
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 await message.reply("Как боженька молвил")
