@@ -10,7 +10,7 @@ from data.data_for_bot import pidora_otvet, vocab, say_it, khuilyky
 from utils.db_api.mongodb import pidor_db
 from utils.misc.time_functions import sent_recently
 from utils.misc.eng_to_rus import replace_values_in_string
-tool = language_tool_python.LanguageToolAPI('uk')
+tool = language_tool_python.LanguageTool('uk')
 
 
 @dp.message_handler(commands=['all'])
