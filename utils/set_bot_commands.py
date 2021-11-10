@@ -11,5 +11,6 @@ async def set_default_commands(dp):
             types.BotCommand("stats", "Get stats"),
             types.BotCommand("help", "Get info"),
             types.BotCommand("statham", "To learn from the wisest of all men"),
+            types.BotCommand("anon_msg", "send anonymous message"),
         ]
     )

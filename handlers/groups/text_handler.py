@@ -9,8 +9,8 @@ from loader import dp, bot
 from data.data_for_bot import pidora_otvet, vocab, say_it, khuilyky
 from utils.db_api.mongodb import pidor_db
 from utils.misc.time_functions import sent_recently
-
-tool = language_tool_python.LanguageTool('uk')
+from utils.misc.eng_to_rus import replace_values_in_string
+tool = language_tool_python.LanguageToolPublicAPI('uk')
 
 
 @dp.message_handler(commands=['all'])
@@ -52,7 +52,7 @@ async def say_pidor(message: types.Message):
 
     if message.from_user.username == "Nonik000" and not message.forward_from:
         if 'андрюха, на завод' in message.text.lower():
-            bot.send_sticker(669554603, "CAACAgIAAxkBAAIQQGDJFyyPOG_lvycr1epvkxZWAAG8tAAC7gADq5foJ1usnmJLwGkOHwQ")
+            await bot.send_sticker(679885414, "CAACAgIAAxkBAAIQQGDJFyyPOG_lvycr1epvkxZWAAG8tAAC7gADq5foJ1usnmJLwGkOHwQ")
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 await message.reply("Как боженька молвил")
@@ -77,6 +77,13 @@ async def say_pidor(message: types.Message):
                 await bot.send_chat_action(message.chat.id, 'typing')
                 time.sleep(5)
                 await message.reply(f'{proposal}')
+
+    if message.text.lower() == 'вжух':
+        try:
+            changed_text = replace_values_in_string(message.reply_to_message.text)
+            await message.reply(f'{changed_text}')
+        except AttributeError:
+            await message.reply("Хулі ти вжухаєш?")
 
     if message.text.lower() == 'жостко тебе марта, артьом?':
         try:
