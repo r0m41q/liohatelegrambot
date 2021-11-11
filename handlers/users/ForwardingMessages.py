@@ -1,6 +1,6 @@
 from aiogram import types
 from loader import dp, bot
-from aiogram.dispatcher import FSMContext
+from aiogram.dispatcher import FSMContext, filters
 from states.ForwardMessage import ForwardMsg
 from keyboards.default import confirm_keyboard
 
@@ -9,7 +9,7 @@ async def cancel_state(message:types.Message, state:FSMContext):
     await state.finish()
 
 
-@dp.message_handler(commands=['anon_msg'])
+@dp.message_handler(chat_type='private',commands=['anon_msg'])
 async def forward_message(message:types.Message):
     await message.answer("What would you like to send to khuilyky?")
 
@@ -36,7 +36,7 @@ async def confirm_message(message:types.Message, state:FSMContext):
     answer = message.text
     print(answer)
     if answer.lower() == 'yes':
-        await bot.send_message(-1001457164397, f'{user_message}')
+        await bot.send_message(679885414, f'{user_message}')
         await message.answer("Done!", reply_markup=types.ReplyKeyboardRemove())
     else:
         await message.answer("No message will be sent.", reply_markup=types.ReplyKeyboardRemove())
