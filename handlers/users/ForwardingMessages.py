@@ -36,7 +36,7 @@ async def confirm_message(message:types.Message, state:FSMContext):
     answer = message.text
     print(answer)
     if answer.lower() == 'yes':
-        await bot.send_message(679885414, f'{user_message}')
+        await bot.send_message(-1001457164397, f'{user_message}')
         await message.answer("Done!", reply_markup=types.ReplyKeyboardRemove())
     else:
         await message.answer("No message will be sent.", reply_markup=types.ReplyKeyboardRemove())
