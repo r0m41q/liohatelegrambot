@@ -1,7 +1,6 @@
 import re
 import random
 import time
-import language_tool_python
 
 from aiogram import types
 from loader import dp, bot
@@ -10,7 +9,7 @@ from data.data_for_bot import pidora_otvet, vocab, say_it, khuilyky
 from utils.db_api.mongodb import pidor_db
 from utils.misc.time_functions import sent_recently
 from utils.misc.eng_to_rus import replace_values_in_string
-tool = language_tool_python.LanguageTool('uk')
+from utils.misc.stupid_ass_corrector import correct_your_ass
 
 
 @dp.message_handler(commands=['all'])
@@ -29,6 +28,9 @@ async def say_pidor(message: types.Message):
             if message.from_user.username == f"{today_pidor}" and not message.forward_from:
                 if random.randint(1, 12) == 1:  # 1/11 or 9% chance to trigger
                     await message.reply(random.choice(pidora_otvet))
+
+        if message.from_user.username == f"{today_pidor}" and not message.forward_from:
+            await correct_your_ass(message)
 
     for key, value in vocab.items():
         if message.text.lower() == key.lower():
@@ -56,27 +58,6 @@ async def say_pidor(message: types.Message):
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
                 await message.reply("Как боженька молвил")
-
-    if message.from_user.username == "prosto_andrya":
-        if len(message.text) > 8:
-            is_bad_rule = lambda rule: rule.message == 'Це речення не починається з великої літери.' \
-                                       and len(rule.replacements) and rule.replacements[0][0].isupper()
-            matches = tool.check(message.text)
-            matches = [rule for rule in matches if not is_bad_rule(rule)]
-
-            if len(matches) > 1:
-                forward_to_lexa = language_tool_python.utils.correct(message.text, matches)
-                await bot.send_message(679885414, f"Original messsage:\n{message.text}\n"
-                                                  f"Here is possible correction:\n{forward_to_lexa}")
-
-            if len(matches) > 2:
-                proposal = language_tool_python.utils.correct(message.text, matches)
-                time.sleep(2)
-                await bot.send_sticker(message.chat.id,
-                                       "CAACAgIAAxkBAAIQGmDJFtMDPbe4OIHIrCyyHCJjFK9jAALvAAOrl-gnY1y2wnXZiEUfBA")
-                await bot.send_chat_action(message.chat.id, 'typing')
-                time.sleep(5)
-                await message.reply(f'{proposal}')
 
     if message.text.lower() == 'вжух':
         try:
