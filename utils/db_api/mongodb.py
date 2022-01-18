@@ -32,3 +32,10 @@ def get_random_document(collection_name, field_name):  # 'memes_id' 'meme_id'
     ])
     for x in id_:
         return x[f'{field_name}']
+
+def insert_new_meme(meme_id):
+    memes_collection = pidor_db["memes_id"]
+    meme = {
+        "meme_id": f"{meme_id}"
+    }
+    memes_collection.insert_one(meme)
