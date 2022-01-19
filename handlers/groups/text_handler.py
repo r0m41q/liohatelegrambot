@@ -67,11 +67,11 @@ async def say_pidor(message: types.Message):
 
     if message.text.lower() == 'з бази його':
         try:
-            if delete_the_meme(message.reply_to_message.photo[2].file_id):
+            if delete_the_meme(message.reply_to_message.text):
                 await message.reply("The meme has been deleted!")
             else:
                 await message.reply("The meme is not in the db.")
-        except IndexError:
+        except AttributeError:
             await message.reply("Something went wrong. The fault is probably yours, though.")
 
     if message.text.lower() == 'вжух':

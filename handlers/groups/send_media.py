@@ -27,6 +27,7 @@ async def send_saved_photo(message: types.Message):
     if first_one_today(message.chat.id, "meme"):
         meme_id = get_random_document('memes_id', 'meme_id')  # get random meme_id
         await bot.send_photo(message.chat.id, meme_id)
+        await message.answer(meme_id)
         insert_use_of_function('meme', message.chat.id)       # write down use of function
     else:
         await bot.send_message(message.chat.id, "That much laugh can kill, you know")
