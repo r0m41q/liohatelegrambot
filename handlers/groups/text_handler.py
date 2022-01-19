@@ -6,7 +6,7 @@ from aiogram import types
 from loader import dp, bot
 
 from data.data_for_bot import pidora_otvet, vocab, say_it, khuilyky
-from utils.db_api.mongodb import pidor_db, insert_new_meme
+from utils.db_api.mongodb import pidor_db, insert_new_meme, delete_the_meme
 from utils.misc.time_functions import sent_recently
 from utils.misc.eng_to_rus import replace_values_in_string
 from utils.misc.stupid_ass_corrector import correct_your_ass
@@ -26,10 +26,10 @@ async def say_pidor(message: types.Message):
 
         if sent_recently(message, 300):
             if message.from_user.username == f"{today_pidor}" and not message.forward_from:
-                await correct_your_ass(message)
-
                 if random.randint(1, 12) == 1:  # 1/11 or 9% chance to trigger
                     await message.reply(random.choice(pidora_otvet))
+
+                await correct_your_ass(message)
 
     for key, value in vocab.items():
         if message.text.lower() == key.lower():
@@ -62,6 +62,15 @@ async def say_pidor(message: types.Message):
         try:
             insert_new_meme(message.reply_to_message.photo[2].file_id)   # the path to file_id of the photo
             await message.reply("Your meme has been added!")
+        except IndexError:
+            await message.reply("Something went wrong. The fault is probably yours, though.")
+
+    if message.text.lower() == 'з бази його':
+        try:
+            if delete_the_meme(message.reply_to_message.photo[2].file_id):
+                await message.reply("The meme has been deleted!")
+            else:
+                await message.reply("The meme is not in the db.")
         except IndexError:
             await message.reply("Something went wrong. The fault is probably yours, though.")
 
