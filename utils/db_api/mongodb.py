@@ -39,3 +39,13 @@ def insert_new_meme(meme_id):
         "meme_id": f"{meme_id}"
     }
     memes_collection.insert_one(meme)
+
+def delete_the_meme(meme_id):
+    memes_collection = pidor_db["memes_id"]
+    meme = {
+        "meme_id": f"{meme_id}"
+    }
+    if memes_collection.find_one(meme):
+        memes_collection.delete_one(meme)
+        return True
+    return False
