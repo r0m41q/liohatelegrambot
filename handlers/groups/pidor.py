@@ -43,7 +43,7 @@ async def pidor_dnya(message: types.Message):
                           }
             pidor_collection.update_one(filter_, new_values)  # збільшуєм рахунок на 1, і задаєм статус підара
 
-            insert_use_of_function('pidor', message.chat.id)
+            insert_use_of_function('pidor', message.chat.id, message.from_user.username)
 
             await message.answer(f"@{today_pidor} you are pidar!")
         else:

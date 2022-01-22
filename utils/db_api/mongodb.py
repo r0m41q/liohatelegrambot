@@ -18,9 +18,10 @@ def first_one_today(chat_id, name_of_function):
         return True
 
 
-def insert_use_of_function(name_of_function, chat_id):
+def insert_use_of_function(name_of_function, chat_id, username):
     function = {"function_name": f"{name_of_function}",  # додаєм запис з назвою команди і сьогоднішньою датою
-                "date_of_use": f"{datetime.date.today()}"}  # тип дати 'string', вигляду 2021-06-18
+                "date_of_use": f"{datetime.date.today()}",  # тип дати 'string', вигляду 2021-06-18
+                "used_by": f"{username}"}
     functions_collection = pidor_db[f'used_functions_{chat_id}']
     functions_collection.insert_one(function)
 
