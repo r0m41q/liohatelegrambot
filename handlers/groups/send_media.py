@@ -28,7 +28,7 @@ async def send_saved_photo(message: types.Message):
         meme_id = get_random_document('memes_id', 'meme_id')  # get random meme_id
         await bot.send_photo(message.chat.id, meme_id)
         await message.answer(meme_id)
-        insert_use_of_function('meme', message.chat.id)       # write down use of function
+        insert_use_of_function('meme', message.chat.id, message.from_user.username)       # write down use of function
     else:
         await bot.send_message(message.chat.id, "That much laugh can kill, you know")
 
@@ -38,7 +38,7 @@ async def send_fact(message: types.Message):
     if first_one_today(message.chat.id, 'fact'):
         fact = get_random_document('facts', 'fact')
         await message.answer(fact)
-        insert_use_of_function('fact', message.chat.id)
+        insert_use_of_function('fact', message.chat.id, message.from_user.username)
 
     else:
         await message.answer("You already got fact of the day, підор!")
