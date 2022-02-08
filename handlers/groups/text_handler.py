@@ -31,6 +31,10 @@ async def say_pidor(message: types.Message):
 
                 await correct_your_ass(message)
 
+        if message.from_user.username == "entiqa" and not message.forward_from:
+            if today_pidor != "etniqa":
+                await correct_your_ass(message)
+
     for key, value in vocab.items():
         if message.text.lower() == key.lower():
             await message.reply(value)
