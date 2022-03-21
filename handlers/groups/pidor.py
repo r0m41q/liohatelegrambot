@@ -3,6 +3,7 @@ import random
 from aiogram import types
 from loader import dp
 from utils.db_api.mongodb import pidor_db, insert_use_of_function, first_one_today
+from handlers.groups.send_media import send_saved_photo, send_fact
 
 
 @dp.message_handler(commands=['startgame'])
@@ -81,3 +82,10 @@ async def statistics(message: types.Message):
 
     else:
         await message.answer("Nobody in your chat is playing.")
+
+
+@dp.message_handler(commands=['bundle'])
+async def bundle(message: types.Message):
+    await pidor_dnya(message)
+    await send_fact(message)
+    await send_saved_photo(message)
