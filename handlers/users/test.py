@@ -27,3 +27,14 @@ async def reminder_message(message: types.Message):
 async def delete_logs(message: types.Message):
     await delete_all_logs()
     await message.answer("The logs are deleted from DB!")
+
+
+@dp.message_handler(commands=['log_file'])
+async def get_log_file(message: types.Message):
+    try:
+        with open('app.log', 'rb') as file:
+            await bot.send_document(message.chat.id, ('app.log', file))
+
+    except FileNotFoundError:
+        await message.answer('There is no log file right now. Try using /log')
+
