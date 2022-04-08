@@ -24,21 +24,21 @@ async def drop_bomb(message: types.Message):
 
 @dp.message_handler(commands=['meme'])
 async def send_saved_photo(message: types.Message):
-    if first_one_today(message.chat.id, "meme"):
-        meme_id = get_random_document('memes_id', 'meme_id')  # get random meme_id
+    if await first_one_today(message.chat.id, "meme"):
+        meme_id = await get_random_document('memes_id', 'meme_id')  # get random meme_id
         await bot.send_photo(message.chat.id, meme_id)
         await message.answer(meme_id)
-        insert_use_of_function('meme', message.chat.id, message.from_user.username)       # write down use of function
+        await insert_use_of_function('meme', message.chat.id, message.from_user.username)   # write down use of function
     else:
         await bot.send_message(message.chat.id, "That much laugh can kill, you know")
 
 
 @dp.message_handler(commands=['fact'])
 async def send_fact(message: types.Message):
-    if first_one_today(message.chat.id, 'fact'):
-        fact = get_random_document('facts', 'fact')
+    if await first_one_today(message.chat.id, 'fact'):
+        fact = await get_random_document('facts', 'fact')
         await message.answer(fact)
-        insert_use_of_function('fact', message.chat.id, message.from_user.username)
+        await insert_use_of_function('fact', message.chat.id, message.from_user.username)
 
     else:
         await message.answer("You already got fact of the day, підор!")
@@ -46,7 +46,7 @@ async def send_fact(message: types.Message):
 
 @dp.message_handler(commands=['getsticker'])
 async def send_random_sticker(message: types.Message):
-    sticker_id = get_random_document('stickers_id', 'sticker_id')
+    sticker_id = await get_random_document('stickers_id', 'sticker_id')
     await bot.send_sticker(message.chat.id, sticker_id)
 
 
@@ -58,7 +58,7 @@ async def show_creator(message: types.Message):
 @dp.message_handler(content_types=['sticker'])
 async def send_random_sticker(message: types.Message):
     if random.randint(0, 9) == 1:
-        sticker_id = get_random_document('stickers_id', 'sticker_id')
+        sticker_id = await get_random_document('stickers_id', 'sticker_id')
         await bot.send_sticker(message.chat.id, sticker_id)
 
 
