@@ -20,10 +20,10 @@ async def call_everybody(message: types.Message):
 
 @dp.message_handler(content_types=['text'])
 async def say_pidor(message: types.Message):
-    if f'players_{message.chat.id}' in pidor_db.list_collection_names():
+    if f'players_{message.chat.id}' in await pidor_db.list_collection_names():
         pidor_collection = pidor_db[f'players_{message.chat.id}']
-        today_pidor = pidor_collection.find_one({"is_pidor": True})['username']  # зчитуєм підора дня
-
+        today_pidor = await pidor_collection.find_one({"is_pidor": True})  # зчитуєм підора дня
+        today_pidor = today_pidor['username']
         if sent_recently(message, 300):
             if message.from_user.username == f"{today_pidor}" and not message.forward_from:
                 if random.randint(1, 12) == 1:  # 1/11 or 9% chance to trigger
@@ -64,14 +64,14 @@ async def say_pidor(message: types.Message):
 
     if message.text.lower() == 'в базу його':
         try:
-            insert_new_meme(message.reply_to_message.photo[2].file_id)   # the path to file_id of the photo
+            await insert_new_meme(message.reply_to_message.photo[2].file_id)   # the path to file_id of the photo
             await message.reply("Your meme has been added!")
-        except IndexError:
+        except (IndexError, AttributeError):
             await message.reply("Something went wrong. The fault is probably yours, though.")
 
     if message.text.lower() == 'з бази його':
         try:
-            if delete_the_meme(message.reply_to_message.text):
+            if await delete_the_meme(message.reply_to_message.text):
                 await message.reply("The meme has been deleted!")
             else:
                 await message.reply("The meme is not in the db.")
