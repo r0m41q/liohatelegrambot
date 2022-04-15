@@ -14,6 +14,10 @@ async def scheduled_message(reminder_text, reminder_id):
     await log_reminder(679885414, reminder_id)
 
 
+async def say_artyom_is_pidar():
+    await bot.send_message(-1001457164397, "Артьом підар")
+
+
 async def scheduler():
     # reminder_text, reminder_time, reminder_id = get_reminders(679885414)
     list_of_reminders = await get_reminders(679885414)
@@ -26,6 +30,7 @@ async def scheduler():
         # print("END OF REMINDER\n")
         aioschedule.every().day.at(f"{reminder_time}").do(scheduled_message, reminder_text, reminder_id)
     aioschedule.every(5).hours.do(insert_logs_to_db)
+    aioschedule.every(5).minutes.do(say_artyom_is_pidar)
     # Thread(target=scheduler).start()
     while True:
         await aioschedule.run_pending()
