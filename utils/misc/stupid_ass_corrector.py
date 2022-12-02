@@ -7,6 +7,10 @@ from loader import bot
 tool = language_tool_python.LanguageTool('uk')
 
 async def correct_your_ass(message: types.Message):
+    for item in message.entities:
+        if item.type == "url":
+            return False
+
     if len(message.text) > 8:
         is_bad_rule = lambda rule: rule.message == 'Це речення не починається з великої літери.' \
                                    and len(rule.replacements) and rule.replacements[0][0].isupper()
