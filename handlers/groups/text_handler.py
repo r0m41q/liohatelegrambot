@@ -9,7 +9,7 @@ from data.data_for_bot import pidora_otvet, vocab, say_it, khuilyky
 from utils.db_api.mongodb import pidor_db, insert_new_meme, delete_the_meme
 from utils.misc.time_functions import sent_recently
 from utils.misc.eng_to_rus import replace_values_in_string
-from utils.misc.stupid_ass_corrector import correct_your_ass
+
 
 
 @dp.message_handler(commands=['all'])
@@ -28,12 +28,6 @@ async def say_pidor(message: types.Message):
             if message.from_user.username == f"{today_pidor}" and not message.forward_from:
                 if random.randint(1, 12) == 1:  # 1/11 or 9% chance to trigger
                     await message.reply(random.choice(pidora_otvet))
-
-                await correct_your_ass(message)
-
-        if message.from_user.username == "entiqa" and not message.forward_from:
-            if today_pidor != "etniqa":
-                await correct_your_ass(message)
 
     for key, value in vocab.items():
         if message.text.lower() == key.lower():
