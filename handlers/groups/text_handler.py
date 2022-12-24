@@ -53,8 +53,8 @@ async def say_pidor(message: types.Message):
         if 'андрюха, на завод' in message.text.lower():
             await bot.send_sticker(669554603, "CAACAgIAAxkBAAIQQGDJFyyPOG_lvycr1epvkxZWAAG8tAAC7gADq5foJ1usnmJLwGkOHwQ")
         if len(message.text) > 25:
-            if random.randint(1, 30) == 1:
-                await message.reply("Как боженька молвил")
+            if random.randint(1, 70) == 1:
+                await message.reply("Добре сказано.")
 
     if message.text.lower() == 'в базу його':
         try:
