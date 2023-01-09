@@ -3,6 +3,12 @@ from aiogram import types
 from loader import dp, bot
 from utils.db_api.mongodb import first_one_today, get_random_document, insert_use_of_function
 
+okay_ids = [737410204,
+            679885414,
+            591400643,
+            669554603,
+            356854673]
+
 
 @dp.message_handler(commands=['voice'])
 async def say_pidor(message: types.Message):
@@ -35,13 +41,18 @@ async def send_saved_photo(message: types.Message):
 
 @dp.message_handler(commands=['fact'])
 async def send_fact(message: types.Message):
-    if await first_one_today(message.chat.id, 'fact'):
-        fact = await get_random_document('facts', 'fact')
-        await message.answer(fact)
-        await insert_use_of_function('fact', message.chat.id, message.from_user.username)
+    user_id = message.from_user.id
+    if user_id in okay_ids:
+        if await first_one_today(message.chat.id, 'fact'):
+            fact = await get_random_document('facts', 'fact')
+            await message.answer(fact)
+            await insert_use_of_function('fact', message.chat.id, message.from_user.username, fact=fact)
 
+        else:
+            await message.answer("You already got fact of the day, підор!")
     else:
-        await message.answer("You already got fact of the day, підор!")
+        await insert_use_of_function('fact', message.chat.id, message.from_user.username)
+        await message.answer("Fuck you, stranger")
 
 
 @dp.message_handler(commands=['getsticker'])
