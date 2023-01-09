@@ -127,8 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.idea/*
+.idea/
 .env
 venv/
- 
- 
+nohup.out
