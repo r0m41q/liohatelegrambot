@@ -35,7 +35,7 @@ async def say_pidor(message: types.Message):
 
     for element in say_it:
         if message.text.lower() == element:
-            with open('data/voice/pidor.ogg', 'rb') as f1:
+            with open('../../data/voice/pidor.ogg', 'rb') as f1:
                 await bot.send_voice(message.chat.id, f1)
     try:
         if re.search(r'хуйлики', message.text.lower()).group(0) in message.text.lower():
@@ -81,7 +81,7 @@ async def say_pidor(message: types.Message):
 
     if message.text.lower() == 'жостко тебе марта, артьом?':
         try:
-            with open('data/video/for_bot.mp4', 'rb') as f:
+            with open('../../data/video/for_bot.mp4', 'rb') as f:
                 await bot.send_video_note(message.chat.id, f)
         except FileNotFoundError:
             pass
