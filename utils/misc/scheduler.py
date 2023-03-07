@@ -29,7 +29,7 @@ async def scheduler():
         # print(reminder_text, reminder_time, reminder_id)
         # print("END OF REMINDER\n")
         aioschedule.every().day.at(f"{reminder_time}").do(scheduled_message, reminder_text, reminder_id)
-    aioschedule.every(5).hours.do(insert_logs_to_db)
+    aioschedule.every(24).hours.do(insert_logs_to_db)
     # aioschedule.every(5).minutes.do(say_artyom_is_pidar)
     # Thread(target=scheduler).start()
     while True:
