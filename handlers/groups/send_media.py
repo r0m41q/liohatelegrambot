@@ -13,7 +13,7 @@ okay_ids = [737410204,
 @dp.message_handler(commands=['voice'])
 async def say_pidor(message: types.Message):
     try:
-        with open('../../data/voice/pidor.ogg', 'rb') as file:
+        with open('./liohatelegrambot/data/voice/pidor.ogg', 'rb') as file:
             await bot.send_voice(message.chat.id, file)
     except FileNotFoundError:
         pass
@@ -22,7 +22,7 @@ async def say_pidor(message: types.Message):
 @dp.message_handler(commands=['bomb'])
 async def drop_bomb(message: types.Message):
     try:
-        with open('../../data/voice/bomb.ogg', 'rb') as f:
+        with open('./liohatelegrambot/data/voice/bomb.ogg', 'rb') as f:
             await bot.send_voice(message.chat.id, f)
     except FileNotFoundError:
         pass

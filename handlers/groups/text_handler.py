@@ -11,7 +11,6 @@ from utils.misc.time_functions import sent_recently
 from utils.misc.eng_to_rus import replace_values_in_string
 
 
-
 @dp.message_handler(commands=['all'])
 async def call_everybody(message: types.Message):
     ping = re.sub(f'@{message.from_user.username}', '', khuilyky)
@@ -81,7 +80,7 @@ async def say_pidor(message: types.Message):
 
     if message.text.lower() == 'жостко тебе марта, артьом?':
         try:
-            with open('../../data/video/for_bot.mp4', 'rb') as f:
+            with open('./liohatelegrambot/data/video/for_bot.mp4', 'rb') as f:
                 await bot.send_video_note(message.chat.id, f)
         except FileNotFoundError:
             pass
