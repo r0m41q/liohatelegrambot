@@ -1,7 +1,8 @@
 import random
+import time
 from aiogram import types
 from loader import dp, bot
-from utils.db_api.mongodb import first_one_today, get_random_document, insert_use_of_function
+from utils.db_api.mongodb import first_one_today, get_random_document, insert_use_of_function, get_memes
 
 okay_ids = [737410204,
             679885414,
@@ -26,6 +27,15 @@ async def drop_bomb(message: types.Message):
             await bot.send_voice(message.chat.id, f)
     except FileNotFoundError:
         pass
+
+
+@dp.message_handler(commands=['spam'])
+async def send_all_memes(message: types.Message):
+    memes_list = await get_memes('memes_id', 'meme_id')
+    for meme_id in memes_list:
+        await bot.send_photo(message.chat.id, meme_id)
+        await message.answer(meme_id)
+        time.sleep(8)
 
 
 @dp.message_handler(commands=['meme'])

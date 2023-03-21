@@ -76,6 +76,21 @@ async def insert_reminder(json_reminder, username, user_id):
     return reminder_id.inserted_id
 
 
+async def get_memes(collection_name, field_name):
+    meme_collection = pidor_db[f'{collection_name}']
+    # print(user_collection.find({}))
+    # print(list(user_collection.find({})))
+    pymongo_cursor = meme_collection.find()
+    # all_data = list(pymongo_cursor)
+    # print(all_data)
+    list_of_memes = []
+    async for item in pymongo_cursor:
+        meme = item[f"{field_name}"]
+
+        list_of_memes.append(meme)
+    return list_of_memes
+
+
 async def get_reminders(user_id):
     user_collection = reminder_db[f"{user_id}"]
     # print(user_collection.find({}))
