@@ -35,19 +35,27 @@ async def insert_use_of_function(name_of_function, chat_id, username, **kwargs):
     await functions_collection.insert_one(function)
 
 
-async def get_random_document(collection_name, field_name):  # 'memes_id' 'meme_id'
+async def get_random_document(collection_name, field_name, type=False):  # 'memes_id' 'meme_id'
     id_collection = pidor_db[f'{collection_name}']
     id_ = id_collection.aggregate([
         {'$sample': {'size': 1}}
     ])
-    async for x in id_:
-        return x[f'{field_name}']
+    if type:
+        async for x in id_:
+            print(x)
+            doc_type = x['type']
+            return x[f'{field_name}'], doc_type
+    else:
+        async for x in id_:
+            print(x)
+            return x[f'{field_name}']
 
 
-async def insert_new_meme(meme_id):
+async def insert_new_meme(meme_id, type):
     memes_collection = pidor_db["memes_id"]
     meme = {
-        "meme_id": f"{meme_id}"
+        "meme_id": f"{meme_id}",
+        "type": f'{type}'
     }
     await memes_collection.insert_one(meme)
 
@@ -155,3 +163,8 @@ async def delete_all_logs():
     print('%s documents before calling delete_many()' % n)
     result = await bot_log_collection.delete_many({})
     print('%s documents after' % (await bot_log_collection.count_documents({})))
+
+
+# async def add_type_of_the_meme():  додати всім документам з колекції "type": "photo"
+    # meme_collection = pidor_db['memes_id']
+    # await meme_collection.update_many({}, {"$set": {"type": "photo"}})

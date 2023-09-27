@@ -53,13 +53,22 @@ async def say_pidor(message: types.Message):
             await bot.send_sticker(669554603, "CAACAgIAAxkBAAIQQGDJFyyPOG_lvycr1epvkxZWAAG8tAAC7gADq5foJ1usnmJLwGkOHwQ")
         if len(message.text) > 25:
             if random.randint(1, 30) == 1:
-                await message.reply("Как боженька молвил")
+                await message.reply("Файно сказано")
 
     if message.text.lower() == 'в базу його':
+        print(message)
         try:
-            await insert_new_meme(message.reply_to_message.photo[2].file_id)   # the path to file_id of the photo
-            await message.reply("Your meme has been added!")
-        except (IndexError, AttributeError):
+            if message.reply_to_message.photo:
+                file_id = message.reply_to_message.photo[2].file_id
+                await insert_new_meme(file_id, 'photo')   # the path to file_id of the photo
+                await message.reply("Your meme has been added!")
+
+            if message.reply_to_message.video:
+                file_id = message.reply_to_message.video.file_id
+                await insert_new_meme(file_id, 'video')  # the path to file_id of the photo
+                await message.reply("Your meme has been added!")
+
+        except(IndexError, AttribureError):
             await message.reply("Something went wrong. The fault is probably yours, though.")
 
     if message.text.lower() == 'з бази його':

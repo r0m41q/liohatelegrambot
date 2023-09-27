@@ -2,7 +2,7 @@ import random
 import time
 from aiogram import types
 from loader import dp, bot
-from utils.db_api.mongodb import first_one_today, get_random_document, insert_use_of_function, get_memes
+from utils.db_api.mongodb import first_one_today, get_random_document, insert_use_of_function, get_memes, add_type_of_the_meme
 
 okay_ids = [737410204,
             679885414,
@@ -41,10 +41,20 @@ async def send_all_memes(message: types.Message):
 @dp.message_handler(commands=['meme'])
 async def send_saved_photo(message: types.Message):
     if await first_one_today(message.chat.id, "meme"):
-        meme_id = await get_random_document('memes_id', 'meme_id')  # get random meme_id
-        await bot.send_photo(message.chat.id, meme_id)
-        await message.answer(meme_id)
-        await insert_use_of_function('meme', message.chat.id, message.from_user.username)   # write down use of function
+        meme = await get_random_document('memes_id', 'meme_id', type=True)  # get random meme_id
+
+        if meme[1] == 'photo':
+            meme_id = meme[0]
+            await bot.send_photo(message.chat.id, meme_id)
+            await message.answer(meme_id)
+            await insert_use_of_function('meme', message.chat.id, message.from_user.username)  # write down use of function
+        if meme[1] == 'video':
+            meme_id = meme[0]
+            await bot.send_video(message.chat.id, meme_id)
+            await message.answer(meme_id)
+            await insert_use_of_function('meme', message.chat.id, message.from_user.username)
+        else:
+            await message.answer('Шось пішло не так.')
     else:
         await bot.send_message(message.chat.id, "That much laugh can kill, you know")
 
