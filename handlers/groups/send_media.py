@@ -2,7 +2,7 @@ import random
 import time
 from aiogram import types
 from loader import dp, bot
-from utils.db_api.mongodb import first_one_today, get_random_document, insert_use_of_function, get_memes, add_type_of_the_meme
+from utils.db_api.mongodb import first_one_today, get_random_document, insert_use_of_function, get_memes
 
 okay_ids = [737410204,
             679885414,
